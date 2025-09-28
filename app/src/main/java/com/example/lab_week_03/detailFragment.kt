@@ -1,6 +1,7 @@
 package com.example.lab_week_03
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,13 +24,16 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val coffeeId = arguments?.getInt(ARG_COFFEE_ID, 0) ?: 0
+        // NOTE: key must match nav_graph argument name and bundle key from ListFragment
+        val coffeeId = arguments?.getInt("COFFEE_ID", 0) ?: 0
+        Log.d("DetailFragment", "onViewCreated coffeeId=$coffeeId")
         if (coffeeId != 0) {
             setCoffeeData(coffeeId)
         }
     }
 
     fun setCoffeeData(id: Int) {
+        Log.d("DetailFragment", "setCoffeeData called with id=$id")
         when (id) {
             R.id.affogato -> {
                 coffeeTitle?.text = getString(R.string.affogato_title)
@@ -49,18 +53,7 @@ class DetailFragment : Fragment() {
             }
         }
     }
-
-    companion object {
-        private const val ARG_COFFEE_ID = "ARG_COFFEE_ID"
-
-        @JvmStatic
-        fun newInstance(coffeeId: Int) =
-            DetailFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COFFEE_ID, coffeeId)
-                }
-            }
-    }
 }
+
 
 
